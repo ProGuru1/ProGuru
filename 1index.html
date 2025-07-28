@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProGuru - Streamline Your Teaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#87CEEB',
+                        secondary: '#FFB6C1',
+                        accent: '#FFFFE0',
+                        babyblue: '#87CEEB',
+                        pastelpink: '#FFB6C1',
+                        pastelyellow: '#FFFFE0',
+                        boldblue: '#4169E1',
+                        boldpink: '#FF1493'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(45deg, #FFF5F5 0%, #F0F9FF 50%, #F5F3FF 100%);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #87CEEB 0%, #FFB6C1 50%, #FFFFE0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s linear infinite;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #fef7ff 100%);
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(135, 206, 235, 0.25);
+            border: 2px solid #87CEEB;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-bounce-slow {
+            animation: bounce 3s infinite;
+        }
+        
+        .animate-wiggle {
+            animation: wiggle 2s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #000000, #4169E1, #FF1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .flower-decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .cute-button {
+            background: linear-gradient(45deg, #000000, #4169E1, #87CEEB);
+            transform: perspective(1px) translateZ(0);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cute-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(65, 105, 225, 0.4);
+        }
+        
+        .cute-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cute-button:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Cute Flower Decorations -->
+    <div class="flower-decoration top-20 left-10 animate-wiggle">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="8" fill="#FFFFE0"/>
+            <circle cx="20" cy="10" r="6" fill="#FFB6C1"/>
+            <circle cx="30" cy="20" r="6" fill="#87CEEB"/>
+            <circle cx="20" cy="30" r="6" fill="#FFB6C1"/>
+            <circle cx="10" cy="20" r="6" fill="#87CEEB"/>
+            <circle cx="20" cy="20" r="4" fill="#FFF"/>
+        </svg>
+    </div>
+    
+    <div class="flower-decoration top-32 right-20 animate-bounce-slow">
+        <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
+            <path d="M17.5 5C20 5 22 7 22 9.5C25 7 30 9 30 12.5C30 15 28 17 25.5 17C28 20 25 25 22.5 25C20 25 18 23 18 20.5C15 23 10 20 10 17.5C10 15 12 13 14.5 13C12 10 15 5 17.5 5Z" fill="#FFB6C1"/>
+            <circle cx="17.5" cy="17.5" r="3" fill="#FFFFE0"/>
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-black/95 backdrop-blur-sm shadow-lg fixed w-full top-0 z-50 border-b-2 border-pastelpink/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-babyblue to-pastelpink rounded-2xl flex items-center justify-center mr-3 shadow-lg">
+                            <span class="text-white font-bold text-xl">🌸</span>
+                        </div>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-black to-boldpink bg-clip-text text-transparent">ProGuru</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="text-white hover:text-pastelpink px-3 py-2 text-sm font-medium transition-colors" data-en="Features" data-ms="Ciri-ciri">Features</a>
+                        <a href="#pricing" class="text-white hover:text-pastelpink px-3 py-2 text-sm font-medium transition-colors" data-en="Pricing" data-ms="Harga">Pricing</a>
+                        <a href="#about" class="text-white hover:text-pastelpink px-3 py-2 text-sm font-medium transition-colors" data-en="About" data-ms="Tentang">About</a>
+                        <a href="#contact" class="text-white hover:text-pastelpink px-3 py-2 text-sm font-medium transition-colors" data-en="Contact" data-ms="Hubungi">Contact</a>
+                        <button id="lang-toggle" class="text-white hover:text-pastelpink px-3 py-2 text-sm font-medium transition-colors border-2 border-white/30 rounded-xl mr-4 hover:bg-white/10">
+                            🌐 EN | MS
+                        </button>
+                        <button class="cute-button text-white px-6 py-2 rounded-xl font-semibold shadow-lg" data-en="Start Free Trial" data-ms="Mulakan Percubaan Percuma">Start Free Trial ✨</button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-black border-t border-white/20">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#features" class="block px-3 py-2 text-white hover:text-pastelpink" data-en="Features" data-ms="Ciri-ciri">Features</a>
+                <a href="#pricing" class="block px-3 py-2 text-white hover:text-pastelpink" data-en="Pricing" data-ms="Harga">Pricing</a>
+                <a href="#about" class="block px-3 py-2 text-white hover:text-pastelpink" data-en="About" data-ms="Tentang">About</a>
+                <a href="#contact" class="block px-3 py-2 text-white hover:text-pastelpink" data-en="Contact" data-ms="Hubungi">Contact</a>
+                <button id="mobile-lang-toggle" class="w-full text-left text-white hover:text-pastelpink px-3 py-2 border border-white/30 rounded-lg mb-2">
+                    🌐 EN | MS
+                </button>
+                <button class="w-full text-left bg-black text-white px-3 py-2 rounded-lg border border-white/30 hover:bg-white/10 transition-colors" data-en="Start Free Trial" data-ms="Mulakan Percubaan Percuma">Start Free Trial</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-black">
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-en="Plan Smarter,<br><span class='text-accent'>Teach Better</span>" data-ms="Rancang Lebih Bijak,<br><span class='text-accent'>Mengajar Lebih Baik</span>">
+                        Plan Smarter,<br>
+                        <span class="text-accent">Teach Better</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-black/80 leading-relaxed" data-en="Transform your lesson planning with our intuitive digital platform. Create, organize, and manage engaging lesson plans in minutes, not hours." data-ms="Transformasikan perancangan pelajaran anda dengan platform digital yang intuitif. Cipta, atur, dan urus rancangan pelajaran yang menarik dalam beberapa minit, bukan jam.">
+                        Transform your lesson planning with our intuitive digital platform. Create, organize, and manage engaging lesson plans in minutes, not hours.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-black text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-800 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center justify-center" data-en="Start Free Trial ✨" data-ms="Mulakan Percubaan Percuma ✨">
+                            Start Free Trial ✨
+                        </button>
+                        <button class="border-3 border-black text-black px-8 py-4 rounded-2xl font-bold text-lg hover:bg-black hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 flex items-center justify-center" data-en="Watch Demo 🎬" data-ms="Tonton Demo 🎬">
+                            Watch Demo 🎬
+                        </button>
+                    </div>
+                    <div class="mt-8 flex items-center space-x-6 text-sm text-black/70">
+                        <div class="flex items-center">
+                            <span class="text-accent mr-2">✓</span>
+                            <span data-en="14-day free trial" data-ms="Percubaan percuma 14 hari">14-day free trial</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-accent mr-2">✓</span>
+                            <span data-en="No credit card required" data-ms="Tiada kad kredit diperlukan">No credit card required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <!-- Cute Teacher Character -->
+                    <div class="absolute -top-10 -right-10 animate-wiggle z-10">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                            <!-- Teacher character -->
+                            <circle cx="40" cy="30" r="15" fill="#FFE4B5"/>
+                            <circle cx="35" cy="27" r="2" fill="#333"/>
+                            <circle cx="45" cy="27" r="2" fill="#333"/>
+                            <path d="M35 35 Q40 38 45 35" stroke="#FFB6C1" stroke-width="2" fill="none"/>
+                            <rect x="30" y="45" width="20" height="25" rx="3" fill="#87CEEB"/>
+                            <circle cx="25" cy="50" r="8" fill="#FFE4B5"/>
+                            <circle cx="55" cy="50" r="8" fill="#FFE4B5"/>
+                            <rect x="20" y="58" width="8" height="15" fill="#FFE4B5"/>
+                            <rect x="52" y="58" width="8" height="15" fill="#FFE4B5"/>
+                            <!-- Cute hat -->
+                            <ellipse cx="40" cy="20" rx="18" ry="8" fill="#FFB6C1"/>
+                            <rect x="38" y="12" width="4" height="8" fill="#FFB6C1"/>
+                            <circle cx="40" cy="12" r="3" fill="#FFFFE0"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Floating flowers around the demo -->
+                    <div class="absolute top-5 left-5 animate-bounce-slow">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
+                            <circle cx="12.5" cy="12.5" r="5" fill="#FFFFE0"/>
+                            <circle cx="12.5" cy="5" r="3" fill="#FFB6C1"/>
+                            <circle cx="20" cy="12.5" r="3" fill="#87CEEB"/>
+                            <circle cx="12.5" cy="20" r="3" fill="#FFB6C1"/>
+                            <circle cx="5" cy="12.5" r="3" fill="#87CEEB"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="absolute bottom-10 right-5 animate-wiggle">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                            <path d="M15 3C17 3 19 5 19 7C21 5 25 7 25 10C25 12 23 14 21 14C23 16 21 20 19 20C17 20 15 18 15 16C13 18 9 16 9 14C9 12 11 10 13 10C11 8 13 3 15 3Z" fill="#FFB6C1"/>
+                            <circle cx="15" cy="15" r="2" fill="#FFF"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="animate-float">
+                        <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 max-w-md mx-auto border-2 border-pink-100">
+                            <div class="flex items-center mb-4">
+                                <div class="w-4 h-4 bg-red-400 rounded-full mr-2"></div>
+                                <div class="w-4 h-4 bg-yellow-400 rounded-full mr-2"></div>
+                                <div class="w-4 h-4 bg-green-400 rounded-full"></div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-babyblue to-pastelpink text-white p-4 rounded-2xl shadow-lg">
+                                    <div class="text-sm font-semibold flex items-center">📖 English Literature - Grade 9 <span class="ml-2">✨</span></div>
+                                    <div class="text-xs mt-1 opacity-90">Shakespeare's Romeo & Juliet</div>
+                                </div>
+                                <div class="bg-gradient-to-r from-pastelyellow/50 to-pastelpink/20 p-4 rounded-2xl">
+                                    <div class="text-sm text-gray-700 font-medium flex items-center">🎯 Learning Objectives <span class="ml-2">🌟</span></div>
+                                    <div class="text-xs mt-1 text-gray-600">• Analyze character development</div>
+                                </div>
+                                <div class="bg-gradient-to-r from-pastelyellow/30 to-babyblue/30 p-4 rounded-2xl">
+                                    <div class="text-sm text-gray-700 font-medium flex items-center">⏰ Activities (45 min) <span class="ml-2">🎨</span></div>
+                                    <div class="text-xs mt-1 text-gray-600">• Discussion • Reading • Quiz</div>
+                                </div>
+                                <div class="bg-gradient-to-r from-pastelpink to-babyblue text-white p-4 rounded-2xl shadow-lg">
+                                    <div class="text-sm font-semibold flex items-center">✅ Ready to teach! <span class="ml-2">🎉</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-gradient-to-r from-pastelpink/20 via-pastelyellow/20 to-babyblue/20 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Decorative flowers -->
+        <div class="absolute top-10 left-20 animate-wiggle opacity-30">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                <circle cx="25" cy="25" r="10" fill="#FFFFE0"/>
+                <circle cx="25" cy="12" r="8" fill="#FFB6C1"/>
+                <circle cx="38" cy="25" r="8" fill="#87CEEB"/>
+                <circle cx="25" cy="38" r="8" fill="#FFB6C1"/>
+                <circle cx="12" cy="25" r="8" fill="#87CEEB"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-10 right-20 animate-bounce-slow opacity-30">
+            <svg width="45" height="45" viewBox="0 0 45 45" fill="none">
+                <path d="M22.5 5C25 5 27 7 27 9.5C30 7 35 9 35 12.5C35 15 33 17 30.5 17C33 20 30 25 27.5 25C25 25 23 23 23 20.5C20 23 15 20 15 17.5C15 15 17 13 19.5 13C17 10 20 5 22.5 5Z" fill="#FFB6C1"/>
+                <circle cx="22.5" cy="22.5" r="4" fill="#FFF"/>
+            </svg>
+        </div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-xl border-2 border-primary/20 hover:scale-105 transition-all duration-300">
+                    <div class="stats-counter">10K+</div>
+                    <div class="text-gray-700 font-semibold flex items-center justify-center">
+                        <span class="mr-2">👩‍🏫</span>Active Teachers
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-xl border-2 border-secondary/20 hover:scale-105 transition-all duration-300">
+                    <div class="stats-counter">50K+</div>
+                    <div class="text-gray-700 font-semibold flex items-center justify-center">
+                        <span class="mr-2">📝</span>Lesson Plans Created
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-xl border-2 border-accent/20 hover:scale-105 transition-all duration-300">
+                    <div class="stats-counter">95%</div>
+                    <div class="text-gray-700 font-semibold flex items-center justify-center">
+                        <span class="mr-2">⏰</span>Time Saved
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-xl border-2 border-purple/20 hover:scale-105 transition-all duration-300">
+                    <div class="stats-counter">4.9★</div>
+                    <div class="text-gray-700 font-semibold flex items-center justify-center">
+                        <span class="mr-2">⭐</span>User Rating
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-en="Everything You Need to Plan Better" data-ms="Semua Yang Anda Perlukan Untuk Merancang Dengan Lebih Baik">Everything You Need to Plan Better</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-en="Powerful features designed specifically for educators to create engaging, curriculum-aligned lesson plans effortlessly." data-ms="Ciri-ciri berkuasa yang direka khusus untuk pendidik bagi mencipta rancangan pelajaran yang menarik dan selaras dengan kurikulum dengan mudah.">Powerful features designed specifically for educators to create engaging, curriculum-aligned lesson plans effortlessly.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-3xl shadow-xl">
+                    <div class="w-20 h-20 bg-gradient-to-br from-primary to-pink rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl">🎨</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center" data-en="✨ Customizable Templates" data-ms="✨ Templat Boleh Disesuaikan">✨ Customizable Templates</h3>
+                    <p class="text-gray-600" data-en="Choose from hundreds of professionally designed templates for every subject and grade level. Customize to match your teaching style! 🌈" data-ms="Pilih daripada beratus-ratus templat yang direka secara profesional untuk setiap subjek dan tahap gred. Sesuaikan mengikut gaya pengajaran anda! 🌈">Choose from hundreds of professionally designed templates for every subject and grade level. Customize to match your teaching style! 🌈</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-3xl shadow-xl">
+                    <div class="w-20 h-20 bg-gradient-to-br from-secondary to-purple rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl">🖱️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center" data-en="🎯 Drag & Drop Builder" data-ms="🎯 Pembina Seret & Lepas">🎯 Drag & Drop Builder</h3>
+                    <p class="text-gray-600" data-en="Intuitive drag-and-drop interface makes creating lesson plans as easy as moving puzzle pieces. No technical skills required! 🧩" data-ms="Antara muka seret dan lepas yang intuitif menjadikan penciptaan rancangan pelajaran semudah menggerakkan kepingan puzzle. Tiada kemahiran teknikal diperlukan! 🧩">Intuitive drag-and-drop interface makes creating lesson plans as easy as moving puzzle pieces. No technical skills required! 🧩</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-3xl shadow-xl">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent to-orange rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl">📋</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center" data-en="🎓 Curriculum Alignment" data-ms="🎓 Penjajaran Kurikulum">🎓 Curriculum Alignment</h3>
+                    <p class="text-gray-600" data-en="Smart suggestions ensure your lessons align with national and state curriculum standards. Stay compliant effortlessly! ✅" data-ms="Cadangan pintar memastikan pelajaran anda sejajar dengan piawaian kurikulum kebangsaan dan negeri. Kekal patuh dengan mudah! ✅">Smart suggestions ensure your lessons align with national and state curriculum standards. Stay compliant effortlessly! ✅</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-3xl shadow-xl">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-secondary rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl">🔄</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center" data-en="⚡ Reuse & Edit Plans" data-ms="⚡ Guna Semula & Edit Rancangan">⚡ Reuse & Edit Plans</h3>
+                    <p class="text-gray-600" data-en="Save time by reusing successful lesson plans. Make quick edits and adaptations for different classes or years! 🚀" data-ms="Jimat masa dengan menggunakan semula rancangan pelajaran yang berjaya. Buat suntingan pantas dan penyesuaian untuk kelas atau tahun yang berbeza! 🚀">Save time by reusing successful lesson plans. Make quick edits and adaptations for different classes or years! 🚀</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-3xl shadow-xl">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl">👥</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center" data-en="🤝 Team Collaboration" data-ms="🤝 Kerjasama Pasukan">🤝 Team Collaboration</h3>
+                    <p class="text-gray-600" data-en="Share plans with colleagues, collaborate on curriculum development, and build a shared resource library for your school! 🏫" data-ms="Kongsi rancangan dengan rakan sekerja, bekerjasama dalam pembangunan kurikulum, dan bina perpustakaan sumber berkongsi untuk sekolah anda! 🏫">Share plans with colleagues, collaborate on curriculum development, and build a shared resource library for your school! 🏫</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-3xl shadow-xl">
+                    <div class="w-20 h-20 bg-gradient-to-br from-pink to-accent rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl">📚</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center" data-en="📖 Resource Library" data-ms="📖 Perpustakaan Sumber">📖 Resource Library</h3>
+                    <p class="text-gray-600" data-en="Access thousands of ready-made resources, activities, and assessments tailored to different subjects and grade levels! 🎉" data-ms="Akses beribu-ribu sumber siap pakai, aktiviti, dan penilaian yang disesuaikan untuk subjek dan tahap gred yang berbeza! 🎉">Access thousands of ready-made resources, activities, and assessments tailored to different subjects and grade levels! 🎉</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="bg-white py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-en="Simple, Transparent Pricing" data-ms="Harga Yang Mudah dan Telus">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-gray-600" data-en="Choose the plan that works best for you and your teaching needs." data-ms="Pilih pelan yang paling sesuai untuk anda dan keperluan pengajaran anda.">Choose the plan that works best for you and your teaching needs.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-gradient-to-br from-purple/10 to-secondary/10 rounded-3xl p-8 border-3 border-purple/30 hover:scale-105 transition-all duration-300 shadow-xl">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple to-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-2xl">🌱</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Free 🆓</h3>
+                        <div class="text-4xl font-bold bg-gradient-to-r from-purple to-secondary bg-clip-text text-transparent mb-4">$0<span class="text-lg text-gray-600">/month</span></div>
+                        <p class="text-gray-600 mb-6">Perfect for trying out SmartLesson Planner! ✨</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">5 lesson plans per month 📝</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Basic templates 📋</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Email support 📧</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-purple to-secondary text-white py-4 rounded-2xl font-bold hover:scale-105 transition-all duration-300 shadow-lg">
+                        Get Started Free 🚀
+                    </button>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="bg-gradient-to-br from-primary to-pink rounded-3xl p-8 border-3 border-primary text-white relative hover:scale-105 transition-all duration-300 shadow-2xl">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-accent text-gray-900 px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-bounce-slow">⭐ Most Popular ⭐</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-2xl">👑</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Professional ✨</h3>
+                        <div class="text-4xl font-bold mb-4">$19<span class="text-lg opacity-80">/month</span></div>
+                        <p class="opacity-90 mb-6">For individual teachers who want it all! 🌟</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <span class="text-accent mr-3 text-xl">✓</span>
+                            <span>Unlimited lesson plans 🚀</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-accent mr-3 text-xl">✓</span>
+                            <span>All premium templates 🎨</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-accent mr-3 text-xl">✓</span>
+                            <span>Curriculum alignment 🎓</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-accent mr-3 text-xl">✓</span>
+                            <span>Resource library access 📚</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-accent mr-3 text-xl">✓</span>
+                            <span>Priority support ⚡</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-accent text-gray-900 py-4 rounded-2xl font-bold hover:bg-yellow-400 hover:scale-105 transition-all duration-300 shadow-lg">
+                        Start Free Trial 🎉
+                    </button>
+                </div>
+                
+                <!-- School Plan -->
+                <div class="bg-gradient-to-br from-secondary/10 to-accent/10 rounded-3xl p-8 border-3 border-secondary/30 hover:scale-105 transition-all duration-300 shadow-xl">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-2xl">🏫</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">School 🎒</h3>
+                        <div class="text-4xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent mb-4">$99<span class="text-lg text-gray-600">/month</span></div>
+                        <p class="text-gray-600 mb-6">For schools and districts! 🌈</p>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Up to 50 teachers 👥</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Team collaboration 🤝</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Admin dashboard 📊</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Custom branding 🎨</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-secondary mr-3 text-xl">✓</span>
+                            <span class="text-gray-700">Dedicated support 💎</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-secondary to-accent text-white py-4 rounded-2xl font-bold hover:scale-105 transition-all duration-300 shadow-lg">
+                        Contact Sales 📞
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Built by Teachers, for Teachers</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        SmartLesson Planner was created by a team of experienced educators who understand the daily challenges teachers face. We've spent countless hours in classrooms, struggling with time-consuming lesson planning processes.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Our mission is simple: give teachers back their time so they can focus on what matters most - inspiring and educating students. With SmartLesson Planner, you can create professional, engaging lesson plans in minutes, not hours.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white text-sm">✓</span>
+                            </div>
+                            <span class="text-gray-700">Founded by classroom teachers</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white text-sm">✓</span>
+                            </div>
+                            <span class="text-gray-700">Trusted by 10,000+ educators worldwide</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white text-sm">✓</span>
+                            </div>
+                            <span class="text-gray-700">Continuously updated with teacher feedback</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <div class="text-center mb-6">
+                            <div class="w-20 h-20 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <span class="text-white text-3xl">👩‍🏫</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">Sarah Johnson</h3>
+                            <p class="text-gray-600">Founder & Former 5th Grade Teacher</p>
+                        </div>
+                        <blockquote class="text-gray-700 italic text-center">
+                            "After 15 years in the classroom, I knew there had to be a better way to plan lessons. SmartLesson Planner is the tool I wish I had from day one of my teaching career."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-en="Get in Touch" data-ms="Hubungi Kami">Get in Touch</h2>
+                <p class="text-xl text-gray-600" data-en="Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible." data-ms="Ada soalan? Kami ingin mendengar daripada anda. Hantar mesej kepada kami dan kami akan membalas secepat mungkin.">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 mt-1">
+                                <span class="text-primary">📧</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Email</h4>
+                                <p class="text-gray-600">hello@smartlessonplanner.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 mt-1">
+                                <span class="text-primary">📞</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Phone</h4>
+                                <p class="text-gray-600">1-800-SMART-LP</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mr-4 mt-1">
+                                <span class="text-primary">💬</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Live Chat</h4>
+                                <p class="text-gray-600">Available 9 AM - 5 PM EST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="space-y-6" onsubmit="handleContactSubmit(event)">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <select id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option>General Inquiry</option>
+                                <option>Technical Support</option>
+                                <option>Pricing Questions</option>
+                                <option>Feature Request</option>
+                                <option>Partnership</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-xl">📚</span>
+                        </div>
+                        <span class="text-2xl font-bold">ProGuru</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        Empowering teachers worldwide with intelligent lesson planning tools that save time and enhance student engagement.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <span class="sr-only">LinkedIn</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Templates</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 SmartLesson Planner. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching functionality
+        let currentLang = 'en';
+        
+        function switchLanguage() {
+            currentLang = currentLang === 'en' ? 'ms' : 'en';
+            
+            // Update all elements with language data attributes
+            document.querySelectorAll('[data-en][data-ms]').forEach(element => {
+                const text = element.getAttribute(`data-${currentLang}`);
+                if (text) {
+                    element.innerHTML = text;
+                }
+            });
+            
+            // Update language toggle buttons
+            const langButtons = document.querySelectorAll('#lang-toggle, #mobile-lang-toggle');
+            langButtons.forEach(button => {
+                button.textContent = currentLang === 'en' ? '🌐 MS | EN' : '🌐 EN | MS';
+            });
+        }
+        
+        // Add event listeners for language toggle
+        document.getElementById('lang-toggle').addEventListener('click', switchLanguage);
+        document.getElementById('mobile-lang-toggle').addEventListener('click', switchLanguage);
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Contact form submission
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Show success message (in a real app, this would send to a server)
+            alert(`Thank you, ${name}! Your message has been received. We'll get back to you at ${email} within 24 hours.`);
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Animate stats counters when they come into view
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = counter.textContent;
+                        const isPercentage = target.includes('%');
+                        const isStar = target.includes('★');
+                        const targetNumber = parseInt(target.replace(/[^\d]/g, ''));
+                        
+                        let current = 0;
+                        const increment = targetNumber / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= targetNumber) {
+                                current = targetNumber;
+                                clearInterval(timer);
+                            }
+                            
+                            if (isPercentage) {
+                                counter.textContent = Math.floor(current) + '%';
+                            } else if (isStar) {
+                                counter.textContent = (current / 10).toFixed(1) + '★';
+                            } else if (targetNumber >= 1000) {
+                                counter.textContent = Math.floor(current / 1000) + 'K+';
+                            } else {
+                                counter.textContent = Math.floor(current) + '+';
+                            }
+                        }, 20);
+                        
+                        observer.unobserve(counter);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Initialize counter animation
+        animateCounters();
+
+        // Add hover effects to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9662f37d42d63c6f',t:'MTc1MzY5MDc2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
